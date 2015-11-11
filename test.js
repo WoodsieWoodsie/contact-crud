@@ -1,24 +1,25 @@
-myFunc(function(err, data){
-  if(err){
-    console.log('ERROR:', err);
-  } else {
-    console.log('DATA:', data);
-  }
-});
+var Contacts = require('./models/contact');
 
-var request = require('request');
 
-function myFunc(callback){
-  request.get('/api thing', function(err, data){
-    callback(err, data);
-  })
-  request.get('/api thing', cb);
 
-  // var num = Math.floor(Math.random() * 5);
 
-  // if(num === 0){
-  //   cb("OMG IT'S AN ERROR");
-  // } else {
-  //   cb(null, [1,2,3,4])
-  // }
-}
+
+
+
+// Contacts.find(function(err, contacts) {
+//   if (err) {
+//     console.log('error with find')  
+//     return; 
+//   }
+//   console.log('found contacts: ', contacts);
+// });
+
+// var contact = {name: 'thingy', phone: '555-2625', email: 'me@me.com'};
+
+// Contacts.create(contact, function(err) {
+//   if (err) {
+//     console.log('ERROR WITH CREATE', err);
+//   } else {
+//     console.log('contact create successfully');
+//   }
+// });
