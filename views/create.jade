@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    title Create A Contact
+    link(href="bower_components/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
+  body
+    .container
+      br
+      .row
+        h1 Add A Contact
+      br
+      .row  
+        form
+          .row
+            label(for="nameInput") Name: 
+            input(type="text", name="name")
+            label(for="phoneInput") Phone: 
+            input(type="number", name="phone")
+            label(for="emailInput") Email: 
+            input(type="text", name="email")
+            .btn.btn-success.btn-xs.submit Add Contact
+    script(src='bower_components/jquery/dist/jquery.min.js')
+    script(src='js/main.js')

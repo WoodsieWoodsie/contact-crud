@@ -1,12 +1,13 @@
 'use strict';
 
 var fs = require('fs');
+var db = 'db/contacts.json';
 
 var Contacts = {};
 
 // FINDS ALL CONTACTS
 Contacts.find = function(cb) {
-  fs.readFile('db/contacts.json', function(err, data) {
+  fs.readFile(db, function(err, data) {
     if (err) {
       cb(err);
     } else {
@@ -22,7 +23,7 @@ Contacts.create = function(contact, cb) {
     if (err) return cb(err);
     contacts.push(contact);
     var data = JSON.stringify(contacts);
-    fs.writeFile('db/contacts.json', data, function(err) {
+    fs.writeFile(db, data, function(err) {
       if (err) return cb(err);
       cb(null);
     });
@@ -30,6 +31,32 @@ Contacts.create = function(contact, cb) {
 }
 
 // EDIT A CONTACT
-Contacts.edit = function()
+// Contacts.edit = function()
+
+// DELETE A CONTACT
+Contacts.delete = function(contact, cb) {
+  fs.readFile(db, function(err, data) {
+    if (err) {
+      cb(err);
+    } else {
+      var contacts = JSON.parse(data);
+      var names = contacts.map(function(contact){
+        return contact.name;
+      });
+      var index = names.indexOf(contact.name);
+      if(index === -1){
+        cb('name not found');
+      } else {
+        contacts.splice(index, 1);
+        var data = JSON.stringify(contacts);
+        console.log('after-delete data: ', data);
+        fs.writeFile(db, data, function(err){
+          if (err) return cb (err);
+          cb(null);
+        });
+      }
+    }
+  });
+};
 
 module.exports = Contacts;

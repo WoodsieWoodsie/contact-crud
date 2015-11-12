@@ -1,3 +1,15 @@
 body {
-  background-color: grey;
+  
+}
+
+label {
+  margin: 15px;
+}
+
+input: {
+  margin: 15px;
+}
+
+.addContact {
+  margin: 15px;
 }

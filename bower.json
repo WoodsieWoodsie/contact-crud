@@ -2,7 +2,6 @@
   "name": "expresstest",
   "description": "",
   "main": "app.js",
- 
   "license": "ISC",
   "moduleType": [],
   "ignore": [
@@ -14,6 +13,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "sweetalert": "~1.1.3"
   }
 }

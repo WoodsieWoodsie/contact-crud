@@ -1,12 +1,30 @@
-doctype html
-html(lang="en")
-  head
-    title Home
-    link(href="bower_components/bootstrap/dist/css/bootstrap.min.css")
-  body
-    .container
-      br
-      .jumbotron
-        h1 Hey!
-    script(src='bower_components/jquery/dist/jquery.min.js')
-    script(src='js/main.js')
+extends ./layout.jade
+
+block content
+  .container
+    - var properties = ['name', 'phone', 'email']
+    h1 Rolodexpress
+    .row
+      each prop in properties
+        label #{prop}:
+        input(id= prop)
+      .btn.btn-success.btn-sm.addContact Add a Contact
+    .row
+      table.table.table-striped.table-hover
+        thead
+          tr
+            each prop in properties
+              th= prop 
+            th edit
+            th delete   
+        tbody#contactList
+          each item, index in contacts
+            tr 
+              each prop in properties
+                td(class= prop, id= prop)= contacts[index][prop]
+              td
+                .btn.btn-primary.btn-xs.edit Edit Contact
+              td
+                .btn.btn-danger.btn-xs.delete Delete Contact
+block scripts  
+  script(src='js/contacts/main.js')
