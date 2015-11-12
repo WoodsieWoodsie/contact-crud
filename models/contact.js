@@ -41,10 +41,6 @@ Contacts.update = function(contact, cb) {
       var index = contacts.filter(function(el){
         return el.ident === contact.ident;
       })[0];
-      // var index = idents.indexOf(contact.ident);
-      // if(index === -1){
-      //   cb('contact not found');
-      // } else {
       console.log('PUT CONTACT', contact)
       contacts.splice(index, 1, contact);
       var data = JSON.stringify(contacts);

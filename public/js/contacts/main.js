@@ -92,7 +92,7 @@ function addContact() {
       var $email = $('<td>').text(contact.email).addClass('email');
       var $edit = $('<td>').append($('<button>').text('Edit Contact').addClass('btn btn-primary btn-xs edit'));
       var $delete = $('<td>').append($('<button>').text('Delete Contact').addClass('btn btn-danger btn-xs delete'));
-      $tr.append($name, $phone, $email, $edit, $delete);
+      $tr.append($name, $phone, $email, $edit, $delete).attr('class', ident);
       return $tr;
     }
 
