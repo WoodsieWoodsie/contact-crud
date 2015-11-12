@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 });
 
 router.put('/', function(req, res) {
-  Contacts.put(req.body, function(err){
+  Contacts.update(req.body, function(err){
     console.log('PUT req.body: ', req.body);
     if (err) return res.status(400).send(err);
     res.send();

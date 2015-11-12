@@ -32,27 +32,28 @@ Contacts.create = function(contact, cb) {
 }
 
 // EDIT A CONTACT
-Contacts.put = function(contact, cb) {
+Contacts.update = function(contact, cb) {
    fs.readFile(db, function(err, data) {
     if (err) {
       cb(err);
     } else {
       var contacts = JSON.parse(data);
-      var idents = contacts.map(function(contact){
-        return contact.ident;
+      var index = contacts.filter(function(el){
+        return el.ident === contact.ident;
+      })[0];
+      // var index = idents.indexOf(contact.ident);
+      // if(index === -1){
+      //   cb('contact not found');
+      // } else {
+      console.log('PUT CONTACT', contact)
+      contacts.splice(index, 1, contact);
+      var data = JSON.stringify(contacts);
+      console.log('after-edit data: ', data);
+      fs.writeFile(db, data, function(err){
+        if (err) return cb(err);
+        cb(null);
       });
-      var index = idents.indexOf(contact.ident);
-      if(index === -1){
-        cb('contact not found');
-      } else {
-        contacts = contacts.splice(index, 1, contact);
-        var data = JSON.stringify(contacts);
-        console.log('after-edit data: ', data);
-        fs.writeFile(db, data, function(err){
-          if (err) return cb (err);
-          cb(null);
-        });
-      }
+      // }
     }
   });
 }

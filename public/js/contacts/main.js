@@ -8,14 +8,12 @@ function init(){
   $('#contactList').on('click', '.edit', editContact);
 }
 
-var db = './db/contacts.json'
-
 function editContact(e) {
   var $target = $(e.target);
   console.log('edit target', $target);
   var $editRow = $target.closest('tr');
-  // var ident = $target.closest('tr').attr('ident');
-  console.log($editRow.attr());
+  var ident = $editRow.attr('class');
+  console.log('ident: ', ident);
   var name = $editRow.find('.name').text();
   var phone = $editRow.find('.phone').text();
   var email = $editRow.find('.email').text();
@@ -23,7 +21,7 @@ function editContact(e) {
   var $editName = $('.editName').val(name);
   var $editPhone = $('.editPhone').val(phone);
   var $editEmail = $('.editEmail').val(email);
-  $('.save-changes').click(saveChanges);
+  $('.save-changes').one('click', saveChanges);
 
   function saveChanges(e) {
     $target = $(e.target);
@@ -36,7 +34,14 @@ function editContact(e) {
       data: {ident: ident, name: newNameVal, phone: newPhoneVal, email: newEmailVal}
     })
     .done(function(data){
-      console.log('Changes saved!');
+      var $tr = $('<tr>');
+      var $name = $('<td>').text(newNameVal).addClass('name');
+      var $phone = $('<td>').text(newPhoneVal).addClass('phone');
+      var $email = $('<td>').text(newEmailVal).addClass('email');
+      var $edit = $('<td>').append($('<button>').text('Edit Contact').addClass('btn btn-primary btn-xs edit'));
+      var $delete = $('<td>').append($('<button>').text('Delete Contact').addClass('btn btn-danger btn-xs delete'));
+      $tr.append($name, $phone, $email, $edit, $delete);
+      $('tbody').append($tr).remove($target.closest($('tr')));
     })
     .fail(function(err){
       console.error(err);
@@ -87,7 +92,7 @@ function addContact() {
       var $email = $('<td>').text(contact.email).addClass('email');
       var $edit = $('<td>').append($('<button>').text('Edit Contact').addClass('btn btn-primary btn-xs edit'));
       var $delete = $('<td>').append($('<button>').text('Delete Contact').addClass('btn btn-danger btn-xs delete'));
-      $tr.append($name, $phone, $email, $edit, $delete).addClass(`${ident}`);
+      $tr.append($name, $phone, $email, $edit, $delete);
       return $tr;
     }
 
