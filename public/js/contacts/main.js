@@ -22,7 +22,6 @@ function editContact(e) {
   var $editPhone = $('.editPhone').val(phone);
   var $editEmail = $('.editEmail').val(email);
   $('.save-changes').one('click', saveChanges);
-
   function saveChanges(e) {
     $target = $(e.target);
     var newNameVal = $('.editName').val();
@@ -41,7 +40,9 @@ function editContact(e) {
       var $edit = $('<td>').append($('<button>').text('Edit Contact').addClass('btn btn-primary btn-xs edit'));
       var $delete = $('<td>').append($('<button>').text('Delete Contact').addClass('btn btn-danger btn-xs delete'));
       $tr.append($name, $phone, $email, $edit, $delete);
-      $('tbody').append($tr).remove($target.closest($('tr')));
+
+      $('tbody').append($tr);
+      $editRow.remove();
     })
     .fail(function(err){
       console.error(err);
