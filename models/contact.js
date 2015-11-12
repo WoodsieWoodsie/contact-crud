@@ -22,6 +22,7 @@ Contacts.create = function(contact, cb) {
   Contacts.find(function(err, contacts) {
     if (err) return cb(err);
     contacts.push(contact);
+    console.log('contacts', contacts);
     var data = JSON.stringify(contacts);
     fs.writeFile(db, data, function(err) {
       if (err) return cb(err);
@@ -31,7 +32,30 @@ Contacts.create = function(contact, cb) {
 }
 
 // EDIT A CONTACT
-// Contacts.edit = function()
+Contacts.put = function(contact, cb) {
+   fs.readFile(db, function(err, data) {
+    if (err) {
+      cb(err);
+    } else {
+      var contacts = JSON.parse(data);
+      var idents = contacts.map(function(contact){
+        return contact.ident;
+      });
+      var index = idents.indexOf(contact.ident);
+      if(index === -1){
+        cb('contact not found');
+      } else {
+        contacts = contacts.splice(index, 1, contact);
+        var data = JSON.stringify(contacts);
+        console.log('after-edit data: ', data);
+        fs.writeFile(db, data, function(err){
+          if (err) return cb (err);
+          cb(null);
+        });
+      }
+    }
+  });
+}
 
 // DELETE A CONTACT
 Contacts.delete = function(contact, cb) {
@@ -40,10 +64,10 @@ Contacts.delete = function(contact, cb) {
       cb(err);
     } else {
       var contacts = JSON.parse(data);
-      var names = contacts.map(function(contact){
-        return contact.name;
+      var idents = contacts.map(function(contact){
+        return contact.ident;
       });
-      var index = names.indexOf(contact.name);
+      var index = idents.indexOf(contact.ident);
       if(index === -1){
         cb('name not found');
       } else {

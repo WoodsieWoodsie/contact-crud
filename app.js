@@ -19,10 +19,6 @@ app.use(express.static('public'));
 // ROUTES
 app.use('/', require('./routes/index'));
 app.use('/contacts', require('./routes/contacts'));
-// app.use('/create', require('./routes/create'));
-// app.use('/edit', require('./routes/edits'));
-
-
 
 // 404 HANDLER
 app.use(function(req, res){

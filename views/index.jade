@@ -2,6 +2,28 @@ extends ./layout.jade
 
 block content
   .container
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Edit contact information
+          .modal-body
+            .row
+              label(for="name") Name:
+              input(type="text" class= 'editName')
+            .row
+              label(for="name") Phone:
+              input(type="text" class= 'editPhone')
+            .row
+              label(for="name") Email:
+              input(type="text" class= 'editEmail')
+
+          .modal-footer
+            button.btn.btn-primary.btn-xs(type='button', data-dismiss='modal') Close
+            button.btn.btn-success.btn-xs.save-changes(type='button', data-dismiss='modal') Save changes
+
     - var properties = ['name', 'phone', 'email']
     h1 Rolodexpress
     .row
@@ -19,12 +41,12 @@ block content
             th delete   
         tbody#contactList
           each item, index in contacts
-            tr 
+            tr(class= item.ident) 
               each prop in properties
                 td(class= prop, id= prop)= contacts[index][prop]
               td
-                .btn.btn-primary.btn-xs.edit Edit Contact
+                button(type='button', data-toggle= 'modal', data-target= '#myModal' class= 'btn btn-primary btn-xs edit') Edit Contact
               td
-                .btn.btn-danger.btn-xs.delete Delete Contact
+                button.btn.btn-danger.btn-xs.delete Delete Contact
 block scripts  
   script(src='js/contacts/main.js')

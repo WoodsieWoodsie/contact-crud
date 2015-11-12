@@ -11,8 +11,15 @@ router.get('/', function(req, res) {
     if (contacts.length) {
       res.render('index', {contacts: contacts});
     }
-    
   });
+});
+
+router.put('/', function(req, res) {
+  Contacts.put(req.body, function(err){
+    console.log('PUT req.body: ', req.body);
+    if (err) return res.status(400).send(err);
+    res.send();
+  })
 });
 
 router.post('/', function(req, res) {
@@ -24,11 +31,8 @@ router.post('/', function(req, res) {
 });
 
 router.delete('/', function(req, res) {
-  // res.send(req.body);
   Contacts.delete(req.body, function(err) {
-    if (err) {
-      return res.status(400).send(err);
-    }
+    if (err) return res.status(400).send(err);
     console.log('req.body: ', req.body);
     res.send(); 
   });
